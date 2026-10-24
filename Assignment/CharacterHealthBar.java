@@ -1,0 +1,44 @@
+public class CharacterHealthBar {
+    static class Character {
+        private final int maxHealth;
+        private int health;
+
+        Character(int maxHealth) {
+            if (maxHealth < 0) {
+                throw new IllegalArgumentException("Maximum health cannot be negative.");
+            }
+            this.maxHealth = maxHealth;
+            this.health = maxHealth;
+        }
+
+        void takeDamage(int amount) {
+            if (amount > 0) {
+                health = Math.max(0, health - amount);
+            }
+        }
+
+        void heal(int amount) {
+            if (amount > 0) {
+                health = Math.min(maxHealth, health + amount);
+            }
+        }
+
+        int getHealth() {
+            return health;
+        }
+
+        int getMaxHealth() {
+            return maxHealth;
+        }
+    }
+
+    public static void main(String[] args) {
+        Character c = new Character(100);
+        c.takeDamage(30);
+        System.out.println("Health after damage: " + c.getHealth());
+        c.heal(50);
+        System.out.println("Health after healing: " + c.getHealth());
+        c.takeDamage(150);
+        System.out.println("Health after heavy damage: " + c.getHealth());
+    }
+}
